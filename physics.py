@@ -1,4 +1,6 @@
 #Helpers
+import numpy as np
+
 def compute_acceleration(position, G, M):
     #compute r
     r = np.linalg.norm(position)

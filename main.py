@@ -4,6 +4,8 @@ from physics import compute_acceleration, compute_energy, compute_angular_moment
 from integrators import semi_implicit_euler_step
 from plotting import plot_trajectory, plot_diagnostics
 from render_pygame import animate_pygame
+import matplotlib.pyplot as plt
+from matplotlib.patches import Circle
 from matplotlib.animation import FuncAnimation
 
 
@@ -63,12 +65,9 @@ data = {
     "horizon_r": horizon_r,
 }
 
-#plot trajectory
-fig,ax = plt.subplots()
-
 #optional matplotlib figures
-plot_trajectory(data)
-plot_diagnostics(data)
+# plot_trajectory(data)
+# plot_diagnostics(data)
 
 #pygame playback
 animate_pygame(data)

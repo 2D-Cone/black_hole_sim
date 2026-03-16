@@ -8,7 +8,7 @@ m = 1.0
 M = 1.0
 dt = 0.01
 horizon_r = 2.0 #for newtonian version, if particle gets too close to black hole it gets "captured"
-num_steps = 5000
+num_steps = 20000
 
 #Initial conditions
 r0 = 8.0 #initial orbit radius
@@ -47,6 +47,9 @@ def compute_angular_momentum(position, velocity, m):
     return m * (x * vy - y * vx)
     pass
 
+#store variables
+angular_momentum = compute_angular_momentum(position, velocity, m)
+total_energy = compute_energy(position, velocity, G, M, m)
 
 #history_cont
 x_history = []
@@ -58,15 +61,31 @@ angular_momentum_history = []
 #main sim loop
 captured = False
 
-for step in range(num_steps)
+for step in range(num_steps):
     #record history
+    x_history.append(position[0])
+    y_history.append(position[1])
+    time_history.append(step * dt)
+    energy_history.append(total_energy)
+    angular_momentum_history.append(angular_momentum)
+
 
     #compute acceleration
+    acceleration = compute_acceleration(position, G, M)
 
-    #semi-implicit Euler update?
+    #semi-implicit euler update!
+    #v_vec_new = v_vec + a_vec*dt
+    #r_vec_new = r_vec + v_vec_new*dt
+    velocity = velocity + acceleration * dt
+    position = position + velocity * dt
+
 
     #check horizon cross
+    r = np.linalg.norm(position)    #compute new radius
     #if captured: break
+    if r <= horizon_r:
+        captured = True
+        break
 
 
 #plot trajectory
@@ -74,7 +93,18 @@ fig,ax = plt.subplots()
 
 
 #plot trajectory
+ax.plot(x_history, y_history, label='particle trajectory')
 #plot black hole
+ax.plot(0, 0, "ko", markersize=8, label="black hole") #k = black, o = circle marker
+#add circle horizon
+horizon = Circle((0, 0), horizon_r, color='black', alpha=0.3)
+ax.add_patch(horizon)
 #set equal aspect ratio
+ax.set_aspect('equal')
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+ax.set_title('Black Hole Orbit Sim')
+ax.grid(True)
+ax.legend()
 #labels, title, grid
 plt.show()

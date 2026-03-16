@@ -108,3 +108,19 @@ ax.grid(True)
 ax.legend()
 #labels, title, grid
 plt.show()
+
+plt.figure()
+plt.plot(time_history, energy_history)
+plt.xlabel("time")
+plt.ylabel("total energy")
+plt.title("Energy vs Time")
+plt.grid(True)
+
+plt.figure()
+plt.plot(time_history, angular_momentum_history)
+plt.xlabel("time")
+plt.ylabel("angular momentum")
+plt.title("Angular Momentum vs Time")
+plt.grid(True)
+
+plt.show()
